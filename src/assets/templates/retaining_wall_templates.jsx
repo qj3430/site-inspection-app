@@ -1,6 +1,7 @@
 import React from "react"
 
-const Preview = (data) => {
+const Preview = ({ data }) => {
+
   return (
     <div class="report-container">
       <h1>Retaining Wall Inspection Report</h1>
@@ -64,8 +65,8 @@ const Preview = (data) => {
       </div>
 
       <div>
-        {data.sections.map(section => {
-          <div class="section">
+        {data.sections.map((section, index) => {
+          <div class="section" key={index}>
             <h2>Site Observations</h2>
             <h3>{section.direction} {section.structure_wall}</h3>
 

@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Login from './components/Login';
 import JobsList from './components/JobsList';
 import ProtectedRoute from './components/ProtectedRoute';
-import InspectionForm from './components/InspectionForm'; // We'll create this next
+import RWIForm from './components/RetainingWallInspectionForm.jsx'
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           } />
           <Route path="/inspection/:jobId" element={
             <ProtectedRoute>
-              <InspectionForm />
+              <RWIForm />
             </ProtectedRoute>
           } />
           <Route path="/" element={<Navigate to="/login" replace />} />

@@ -4,10 +4,23 @@ import { useAuth } from '../contexts/AuthContext';
 
 // Generate 10 dummy jobs for testing
 const generateDummyJobs = () => {
+
+  // Define service types for testing
+  const serviceTypes = [
+    'RetainingWall',
+    'StructuralInspection',
+    'SoilTesting',
+    'FoundationInspection',
+    'DrainageAssessment'
+  ];
+
   const jobs = [];
   for (let i = 1; i <= 10; i++) {
     const jobId = `JOB-${2025}${i.toString().padStart(3, '0')}`;
     const clientName = `Client ${i}`;
+
+    // Assign a service type - cycle through the array
+    const serviceType = serviceTypes[(i - 1) % serviceTypes.length];
 
     // Create a random date within the last 30 days
     const createdDate = new Date();
@@ -20,13 +33,14 @@ const generateDummyJobs = () => {
       status: i % 3 === 0 ? 'Completed' : 'Pending',
       location: `Site ${i}`,
       description: `Inspection for ${clientName} at Site ${i}`,
-      priority: i % 5 === 0 ? 'High' : i % 2 === 0 ? 'Medium' : 'Low'
+      priority: i % 5 === 0 ? 'High' : i % 2 === 0 ? 'Medium' : 'Low',
+      serviceType: serviceType
     });
   }
   return jobs;
 };
 
-function JobsList() {
+const JobsList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -115,6 +129,7 @@ function JobsList() {
                 <tr>
                   <th style={tableHeaderStyle}>Job ID</th>
                   <th style={tableHeaderStyle}>Client Name</th>
+                  <th style={tableHeaderStyle}>Service Type</th>
                   <th style={tableHeaderStyle}>Created Date</th>
                   <th style={tableHeaderStyle}>Status</th>
                   <th style={tableHeaderStyle}>Priority</th>
@@ -133,6 +148,17 @@ function JobsList() {
                     <tr key={job.id} style={tableRowStyle}>
                       <td style={tableCellStyle}>{job.id}</td>
                       <td style={tableCellStyle}>{job.clientName}</td>
+                      <td style={tableCellStyle}>
+                        <span style={{
+                          backgroundColor: '#e6f7ff',
+                          color: '#1890ff',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '0.8rem'
+                        }}>
+                          {job.serviceType}
+                        </span>
+                      </td>
                       <td style={tableCellStyle}>{job.createdDate}</td>
                       <td style={tableCellStyle}>
                         <span style={{

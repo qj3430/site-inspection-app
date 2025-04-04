@@ -3,10 +3,9 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import LocationCapture from './LocationCapture';
 import PhotoUpload from './PhotoUpload';
-import ReportTemplate from './ReportTemplate';
 import ReportPreview from './ReportPreview';
 
-function InspectionForm() {
+const RWIForm = () => {
   const { jobId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -159,12 +158,6 @@ function InspectionForm() {
             Inspection
           </div>
           <div
-            className={`tab ${activeTab === 'template' ? 'active' : ''}`}
-            onClick={() => handleTabChange('template')}
-          >
-            Report Template
-          </div>
-          <div
             className={`tab ${activeTab === 'preview' ? 'active' : ''}`}
             onClick={() => handleTabChange('preview')}
           >
@@ -233,13 +226,6 @@ function InspectionForm() {
           </div>
         )}
 
-        {activeTab === 'template' && (
-          <ReportTemplate
-            template={template}
-            setTemplate={setTemplate}
-          />
-        )}
-
         {activeTab === 'preview' && (
           <ReportPreview
             inspectionData={{
@@ -265,4 +251,4 @@ function InspectionForm() {
   );
 }
 
-export default InspectionForm;
+export default RWIForm;

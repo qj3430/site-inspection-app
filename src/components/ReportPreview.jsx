@@ -1,5 +1,6 @@
-// src/components/ReportPreview.jsx (modified to include job fields)
+import ReportTemplate from "./ReportTemplate.jsx"
 function ReportPreview({ inspectionData, photos, template, onSave, isLoading }) {
+
   const generateReportContent = () => {
     let content = template.content;
 
@@ -48,8 +49,9 @@ function ReportPreview({ inspectionData, photos, template, onSave, isLoading }) 
           marginBottom: '20px',
           backgroundColor: 'white'
         }}
-        dangerouslySetInnerHTML={{ __html: generateReportContent() }}
-      />
+      >
+
+      </div>
       <div>
         <button onClick={handleGeneratePDF}>Generate PDF</button>
         <button
