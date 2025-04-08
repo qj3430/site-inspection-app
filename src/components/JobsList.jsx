@@ -8,10 +8,7 @@ const generateDummyJobs = () => {
   // Define service types for testing
   const serviceTypes = [
     'RetainingWall',
-    'StructuralInspection',
-    'SoilTesting',
-    'FoundationInspection',
-    'DrainageAssessment'
+    'Soil',
   ];
 
   const jobs = [];
