@@ -7,12 +7,13 @@ import Header from './components/Header';
 import Login from './components/Login';
 import JobsList from './components/JobsList';
 import ProtectedRoute from './components/ProtectedRoute';
-import RWIForm from './components/RetainingWallInspectionForm.jsx'
+import InspectionForm from './components/InspectionForm';
 
 function App() {
   return (
     <Router>
       <AuthProvider>
+        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/jobs" element={
@@ -22,7 +23,7 @@ function App() {
           } />
           <Route path="/inspection/:jobId" element={
             <ProtectedRoute>
-              <RWIForm />
+              <InspectionForm />
             </ProtectedRoute>
           } />
           <Route path="/" element={<Navigate to="/login" replace />} />

@@ -83,33 +83,6 @@ const JobsList = () => {
 
   return (
     <div>
-      <header style={{
-        backgroundColor: '#2c3e50',
-        color: 'white',
-        padding: '1rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <h1 style={{ margin: 0, fontSize: '1.5rem' }}>Site Inspection App</h1>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <span style={{ marginRight: '15px' }}>
-            Welcome, {currentUser?.name || 'Engineer'}
-          </span>
-          <button
-            onClick={handleLogout}
-            style={{
-              backgroundColor: 'transparent',
-              border: '1px solid white',
-              padding: '5px 10px',
-              marginRight: 0
-            }}
-          >
-            Logout
-          </button>
-        </div>
-      </header>
-
       <div className="container">
         <h2>Your Assigned Jobs</h2>
 
