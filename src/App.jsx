@@ -1,37 +1,34 @@
-
-// src/App.jsx (modified with routing)
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import Header from './components/Header';
 import Login from './components/Login';
 import JobsList from './components/JobsList';
-import ProtectedRoute from './components/ProtectedRoute';
 import InspectionForm from './components/InspectionForm';
 
-function App() {
+const App = () => {
   return (
-    <Router>
-      <AuthProvider>
+    <>
+      <Router>
         <Header />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/jobs" element={
-            <ProtectedRoute>
+        <AuthenticatedTemplate >
+          <Routes>
+            <Route path="/jobs" element={
               <JobsList />
-            </ProtectedRoute>
-          } />
-          <Route path="/inspection/:jobId" element={
-            <ProtectedRoute>
+            } />
+            <Route path="/inspection/:jobId" element={
               <InspectionForm />
-            </ProtectedRoute>
-          } />
-          <Route path="/" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+            } />
+          </Routes>
+        </AuthenticatedTemplate>
+        <UnauthenticatedTemplate>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </UnauthenticatedTemplate>
+      </Router>
+    </>
   );
 }
 
 export default App;
-

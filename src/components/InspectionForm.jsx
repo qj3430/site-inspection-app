@@ -1,6 +1,5 @@
 // src/components/InspectionForm.jsx
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Import all your inspection templates
 import RetainingWallInspection from '../assets/inspectionForms/RetainingWallInspectionForm';
@@ -8,7 +7,6 @@ import SoilInspection from '../assets/inspectionForms/SoilInspectionForm';
 
 const InspectionForm = () => {
   const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
   const location = useLocation();
   const job = location.state?.job;
 

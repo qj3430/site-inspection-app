@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 
 // Generate 10 dummy jobs for testing
 const generateDummyJobs = () => {
@@ -42,7 +41,6 @@ const JobsList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     // Simulate API call to fetch jobs
@@ -66,11 +64,6 @@ const JobsList = () => {
   const handleJobSelect = (job) => {
     // Navigate to inspection form with job ID as parameter
     navigate(`/inspection/${job.id}`, { state: { job } });
-  };
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
   };
 
   if (loading) {

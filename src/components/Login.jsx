@@ -1,25 +1,25 @@
+// src/components/Login.jsx
 import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import authService from '../auth/authService'
 
-function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
+
     setError('');
     setLoading(true);
 
     try {
-      await login(username, password);
+      await authService.login();
       navigate('/jobs');
     } catch (err) {
-      setError('Failed to sign in: ' + err.message);
+      console.error("Login error details:", err);
+      setError('Failed to sign in: ' + (err.message || 'Unknown error'));
     } finally {
       setLoading(false);
     }
@@ -42,43 +42,18 @@ function Login() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+        <div style={{ textAlign: 'center' }}>
+          <p>Click the button below to sign in with your Microsoft account</p>
 
           <button
-            type="submit"
+            onClick={handleLogin}
             className="btn-primary"
             style={{ width: '100%' }}
             disabled={loading}
           >
-            {loading ? 'Signing In...' : 'Sign In'}
+            {loading ? 'Signing In...' : 'Sign in with Microsoft'}
           </button>
-
-          <div style={{ marginTop: '15px', textAlign: 'center', fontSize: '0.9rem' }}>
-            <p>Demo credentials:</p>
-            <p>Username: testing123 | Password: abc123</p>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );

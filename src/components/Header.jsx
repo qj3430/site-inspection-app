@@ -1,14 +1,17 @@
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+// src/components/Header.jsx
+import { useNavigate } from 'react-router-dom';
+import { useIsAuthenticated } from '@azure/msal-react';
+import authService from '../auth/authService'
 
-const Header = ({ isConnected }) => {
+const Header = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-  const { currentUser, logout } = useAuth();
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
+  const isAuthenticated = useIsAuthenticated()
+  const account = authService.getAccount()
+
+  const handleLogout = async () => {
+    await authService.logout()
   };
+
   return (
     <header style={{
       backgroundColor: '#2c3e50',
@@ -23,7 +26,7 @@ const Header = ({ isConnected }) => {
         {isAuthenticated ? (
           <>
             <span style={{ marginRight: '15px' }}>
-              Welcome, {currentUser?.name || 'Engineer'}
+              Welcome, {account?.name || account?.username || 'Engineer'}
             </span>
             <button
               onClick={handleLogout}
@@ -38,19 +41,17 @@ const Header = ({ isConnected }) => {
             </button>
           </>
         ) : (
-          <>
-            <button
-              onClick={navigate('/login')}
-              style={{
-                backgroundColor: 'transparent',
-                border: '1px solid white',
-                padding: '5px 10px',
-                marginRight: 0
-              }}
-            >
-              Login
-            </button>
-          </>
+          <button
+            onClick={() => navigate('/login')}
+            style={{
+              backgroundColor: 'transparent',
+              border: '1px solid white',
+              padding: '5px 10px',
+              marginRight: 0
+            }}
+          >
+            Login
+          </button>
         )}
       </div>
     </header>
